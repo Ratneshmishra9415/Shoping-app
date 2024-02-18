@@ -1,0 +1,43 @@
+<%-include('../partials/header')%> <%-include('../partials/navbar')%>
+<%-include('../partials/flash')%>
+
+<section class="container">
+  <h1 class="display-6 mt-5">MY CART</h1>
+
+  <div class="row">
+    <div class="col-lg-8">
+      <% for(let item of user.cart){ %>
+      <div class="card mx-auto m-3 border" style="max-width: 500px">
+        <div class="row g-0">
+          <div class="col-4">
+            <img class="img-fluid rounded-start" src="<%=item.img%>" alt="" />
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <h5 class="card-title"><%=item.name%></h5>
+              <p class="card-text"><%=item.desc%></p>
+            </div>
+           <form action="/cart/<%=user._id%>/remove" method="POST">
+               <input type="hidden" name="prodId" value="<%=item._id%>">
+               <button type="submit" class="btn  btn-danger mb-3 mt-1 align-content-end" style="margin-left: 14rem;">Remove</button>
+           </form>
+            
+          
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <div class="col-lg-4">
+      <ul>
+        <% for(let item of user.cart){ %>
+        <li><span> <%=item.name%> --&gt; ₹ <%=item.price%> </span></li>
+        <% } %>
+        <li class="totalCount">Total Amount: ₹ <%=totalAmount%></li>
+      </ul>
+      <a href="/payment/<%=user._id%>"><button class="btn btn-sm btn-success">Checkout</button></a>
+    </div>
+  </div>
+</section>
+<script ></script>
+<%-include('../partials/footer')%>
